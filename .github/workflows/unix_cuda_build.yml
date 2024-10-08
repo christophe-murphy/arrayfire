@@ -61,7 +61,7 @@ jobs:
               run: sudo apt-get install -y libopenblas-dev
 
             - name: Cache CUDA files
-              uses: actions/cache
+              uses: actions/cache@v4
               id: cuda-cache
               with:
                    path: ${GITHUB_WORKSPACE}/cuda_download_${CUDA_VER}
