@@ -20,16 +20,13 @@ jobs:
           CUDA_DRIVER: 560.35.03
         strategy:
             fail-fast: false
-            matrix:
-                os: ubuntu-24.04
-                compiler: gcc
         steps:
             - name: Checkout Repository
               uses: actions/checkout@master
 
             - name: Download Ninja
               env:
-                  OS_NAME: ${{ matrix.os }}
+                  OS_NAME: ubuntu-24.04
               run: |
                   wget --quiet "https://github.com/ninja-build/ninja/releases/download/v${NINJA_VER}/ninja-linux.zip"
                   unzip ./ninja-linux.zip
@@ -38,8 +35,8 @@ jobs:
 
             - name: Download CMake 3.16.3 for Linux
               env:
-                  OS_NAME: ${{ matrix.os }}
-                  CC: ${{ matrix.compiler }}
+                  OS_NAME: ubuntu-24.04
+                  CC: gcc
               run: |
                   cmake_url=$(echo "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VER}/cmake-${CMAKE_VER}-Linux-x86_64.tar.gz")
                   wget --quiet "${cmake_url}"
@@ -72,8 +69,8 @@ jobs:
             - name: CMake Configure
               env:
                   BLAS_BACKEND: OpenBLAS
-                  CC: ${{ matrix.compiler }}
-                  OS_NAME: ${{ matrix.os }}
+                  CC: gcc
+                  OS_NAME: ubuntu-24.04
               run: |
                   ref=$(echo ${GITHUB_REF} | awk '/refs\/pull\/[0-9]+\/merge/{print $0}')
                   prnum=$(echo $ref | awk '{split($0, a, "/"); print a[3]}')
@@ -94,7 +91,7 @@ jobs:
 
             - name: Build and Test
               env:
-                  CC: ${{ matrix.compiler }}
+                  CC: gcc
               run: |
                   cd ${GITHUB_WORKSPACE}/build
                   ${GITHUB_WORKSPACE}/ninja -j 2
