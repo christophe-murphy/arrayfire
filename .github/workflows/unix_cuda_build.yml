@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     branches:
     - master
@@ -20,7 +21,6 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                blas_backend: OpenBLAS
                 os: ubuntu-24.04
                 compiler: gcc
         steps:
@@ -71,7 +71,7 @@ jobs:
 
             - name: CMake Configure
               env:
-                  BLAS_BACKEND: ${{ matrix.blas_backend }}
+                  BLAS_BACKEND: OpenBLAS
                   CC: ${{ matrix.compiler }}
                   OS_NAME: ${{ matrix.os }}
               run: |
