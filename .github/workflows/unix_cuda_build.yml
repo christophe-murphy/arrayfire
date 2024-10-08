@@ -42,7 +42,7 @@ jobs:
                   wget --quiet "${cmake_url}"
                   tar -xf ./cmake-${CMAKE_VER}-Linux-x86_64.tar.gz
                   cmake_install_dir=$(echo "cmake-${CMAKE_VER}-x86_64")
-                  mv cmake-${CMAKE_VER}-Linux-x86_64 ${cmake_install_dir}
+                  mv cmake-${CMAKE_VER}-linux-x86_64 ${cmake_install_dir}
                   cmake_dir=$(echo "${cmake_install_dir}/bin")
                   echo "CMAKE_PROGRAM=$(pwd)/${cmake_dir}/cmake" >> $GITHUB_ENV
                   echo "CXX=g++" >> $GITHUB_ENV
