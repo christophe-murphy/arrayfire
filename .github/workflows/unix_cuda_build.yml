@@ -54,16 +54,29 @@ jobs:
                                           libfreeimage-dev \
                                           libglfw3-dev \
                                           libfftw3-dev \
-                                          liblapacke-dev
+                                          liblapacke-dev \
+                                          libfreetype-dev
 
             - name: Install OpenBLAS for Ubuntu
               run: sudo apt-get install -y libopenblas-dev
 
+            - name: Cache CUDA files
+              uses: actions/cache
+              id: cuda-cache
+              with:
+                   path: ${GITHUB_WORKSPACE}/cuda_download_${CUDA_VER}
+                   key: cuda-toolkit-${CUDA_VER}-${CUDA_DRIVER}-linux-installer
+                   restore-keys: cuda-toolkit-${CUDA_VER}-${CUDA_DRIVER}-linux-installer
+
+            - if: steps.cuda-cache.outputs.cache-hit != 'true'
+              name: Download CUDA for Ubuntu
+              run: |
+                  wget --quiet -P ${GITHUB_WORKSPACE}/cuda_download_${CUDA_VER} "https://developer.download.nvidia.com/compute/cuda/${CUDA_VER}/local_installers/cuda_${CUDA_VER}_${CUDA_DRIVER}_linux.run"
+
             - name: Install CUDA for Ubuntu
               run: |
-                  wget --quiet "https://developer.download.nvidia.com/compute/cuda/${CUDA_VER}/local_installers/cuda_${CUDA_VER}_${CUDA_DRIVER}_linux.run"
                   mkdir cuda_${CUDA_VER}
-                  sudo sh cuda_${CUDA_VER}_${CUDA_DRIVER}_linux.run --silent --toolkit --toolkitpath=${GITHUB_WORKSPACE}/cuda_${CUDA_VER}
+                  sudo sh cuda_download_${CUDA_VER}/cuda_${CUDA_VER}_${CUDA_DRIVER}_linux.run --silent --toolkit --toolkitpath=${GITHUB_WORKSPACE}/cuda_${CUDA_VER}
                   echo "CUDA_PATH=$(pwd)/cuda_${CUDA_VER}" >> $GITHUB_ENV
 
             - name: CMake Configure
