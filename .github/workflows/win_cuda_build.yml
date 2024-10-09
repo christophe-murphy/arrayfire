@@ -19,6 +19,7 @@ jobs:
           CUDA_MINOR: 2
           CUDA_VER: 12.6.2
           CUDA_DRIVER: 560.94
+          CUDA_DIR:
         steps:
             - name: Checkout Repository
               uses: actions/checkout@master
