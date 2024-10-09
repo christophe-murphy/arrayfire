@@ -17,7 +17,7 @@ jobs:
           VCPKG_DEFAULT_TRIPLET: x64-windows
           CUDA_MAJOR: 12.6
           CUDA_MINOR: 2
-          CUDA_VER: ${{ CUDA_MAJOR }}.${{ CUDA_MINOR }}
+          CUDA_VER: 12.6.2
           CUDA_DRIVER: 560.94
         steps:
             - name: Checkout Repository
