@@ -15,11 +15,9 @@ jobs:
         runs-on: windows-2022
         env:
           VCPKG_DEFAULT_TRIPLET: x64-windows
-          CUDA_MAJOR: 12.6
-          CUDA_MINOR: 2
-          CUDA_VER: ${{ env.CUDA_MAJOR }}.${{ env.CUDA_MINOR }}
+          CUDA_VER: 12.6.2
           CUDA_DRIVER: 560.94
-          CUDA_DIR: "NVIDIA GPU Computing Toolkit\\CUDA\\v${{ env.CUDA_MAJOR }}"
+          CUDA_DIR: "NVIDIA GPU Computing Toolkit\\CUDA\\v12.6"
         steps:
             - name: Checkout Repository
               uses: actions/checkout@master
