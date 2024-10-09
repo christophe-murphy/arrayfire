@@ -17,7 +17,8 @@ jobs:
           VCPKG_DEFAULT_TRIPLET: x64-windows
           CUDA_VER: 12.6.2
           CUDA_DRIVER: 560.94
-          CUDA_DIR: "C:\\Program` Files\\NVIDIA` GPU` Computing` Toolkit\\CUDA\\v12.6"
+          CUDA_DIR: "C:\\Program` Files"
+          #CUDA_DIR: "C:\\Program` Files\\NVIDIA` GPU` Computing` Toolkit\\CUDA\\v12.6"
         steps:
             - name: Checkout Repository
               uses: actions/checkout@master
