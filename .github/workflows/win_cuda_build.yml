@@ -19,13 +19,13 @@ jobs:
           CUDA_MINOR: 2
           CUDA_VER: ${{ CUDA_MAJOR }}.${{ CUDA_MINOR }}
           CUDA_DRIVER: 560.94
-          CUDA_DIR: "%ProgramFiles%\NVIDIA GPU Computing Toolkit\CUDA\v${{ env.CUDA_MAJOR }}"
         steps:
             - name: Checkout Repository
               uses: actions/checkout@master
 
             - name: Install CUDA for Windows
               run: |
+                  echo 'CUDA_DIR="%ProgramFiles%\NVIDIA GPU Computing Toolkit\CUDA\v${{ env.CUDA_MAJOR }}"' >> $env.GITHUB_ENV
                   curl -sO "https://developer.download.nvidia.com/compute/cuda/${{ env.CUDA_VER }}/local_installers/cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe"
                   .\cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe -n -s nvcc_12.6 `
                   nvrtc_12.6 nvrtc_dev_12.6 thrust_12.6 opencl_12.6 cublas_12.6 cublas_dev_12.6 `
