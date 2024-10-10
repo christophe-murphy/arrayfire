@@ -17,24 +17,18 @@ jobs:
           VCPKG_DEFAULT_TRIPLET: x64-windows
           CUDA_VER: 12.6.2
           CUDA_DRIVER: 560.94
-          CUDA_DIR: "C:\\Program` Files"
-          #CUDA_DIR: "C:\\Program` Files\\NVIDIA` GPU` Computing` Toolkit\\CUDA\\v12.6"
+          CUDA_DIR: "C:\\Program` Files\\NVIDIA` GPU` Computing` Toolkit\\CUDA\\v12.6"
         steps:
             - name: Checkout Repository
               uses: actions/checkout@master
 
             - name: Install CUDA for Windows
               run: |
-                  #curl -sO "https://developer.download.nvidia.com/compute/cuda/${{ env.CUDA_VER }}/local_installers/cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe"
-                  #ls .
-                  .\cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe
-                  #.\cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe -n -s nvcc_12.6 `
-                  #nvrtc_12.6 nvrtc_dev_12.6 thrust_12.6 opencl_12.6 cublas_12.6 cublas_dev_12.6 `
-                  #cufft_12.6 cufft_dev_12.6 curand_12.6 curand_dev_12.6 cusolver_12.6 cusolver_dev_12.6 `
-                  #cusparse_12.6 cusparse_dev_12.6 npp_12.6 npp_dev_12.6 nvjpeg_12.6 nvjpeg_dev_12.6 cudart_12.6
-                  #ls .
-                  #ls ${{ env.CUDA_DIR }}
-                  #${{ env.CUDA_DIR }}\nvcc -V
+                  curl -sO "https://developer.download.nvidia.com/compute/cuda/${{ env.CUDA_VER }}/local_installers/cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe"
+                  Start-Process -FilePath "cuda_${{ env.CUDA_VER }}_${{ env.CUDA_DRIVER }}_windows.exe" `
+                  -ArgumentList "-s nvcc_12.6 nvrtc_12.6 nvrtc_dev_12.6 thrust_12.6 opencl_12.6 cublas_12.6 cublas_dev_12.6 cufft_12.6 cufft_dev_12.6 curand_12.6 curand_dev_12.6 cusolver_12.6 cusolver_dev_12.6 cusparse_12.6 cusparse_dev_12.6 npp_12.6 npp_dev_12.6 nvjpeg_12.6 nvjpeg_dev_12.6 cudart_12.6" `
+                  -Wait -NoNewWindow
+                  ${{ env.CUDA_DIR }}\bin\nvcc -V
 
             - name: Install VCPKG Dependencies
               run: |
