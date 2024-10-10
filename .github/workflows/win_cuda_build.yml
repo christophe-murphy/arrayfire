@@ -35,6 +35,7 @@ jobs:
                 key: vcpkg-deps-${{ env.VCPKG_HASH }}
 
             - name: Install VCPKG Dependencies
+              if: steps.vcpkg-cache.outputs.cache-hit != 'true'
               run: |
                 pushd .
                 cd ~
