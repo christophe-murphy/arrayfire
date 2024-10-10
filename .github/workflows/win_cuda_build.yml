@@ -15,8 +15,6 @@ jobs:
         runs-on: windows-2022
         env:
           VCPKG_DEFAULT_TRIPLET: x64-windows
-          CUDA_VER: 12.6.2
-          CUDA_DRIVER: 560.94
         steps:
             - name: Install CUDA
             uses: Jimver/cuda-toolkit@v0.2.18
