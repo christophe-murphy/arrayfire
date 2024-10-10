@@ -22,7 +22,7 @@ jobs:
               id: cuda-toolkit
               with:
                 cuda: '12.6.2'
-                sub-packages: '["cudart_12.6", "nvcc_12.6", "nvfatbin_12.6", "nvjitlink_12.6", "nvml_dev_12.6", "nvprune_12.6", "nvrtc_12.6", "nvrtc_dev_12.6", "nvtx_12.6", "opencl_12.6", "thrust_12.6", "cublas_12.6", "cublas_dev_12.6", "cufft_12.6", "cufft_dev_12.6", "curand_12.6", "curand_dev_12.6", "cusolver_12.6", "cusolver_dev_12.6", "cusparse_12.6", "cusparse_dev_12.6", "npp_12.6", "npp_dev_12.6", "nvjpeg_12.6", "nvjpeg_dev_12.6"]'
+                sub-packages: '["cudart", "nvcc", "nvfatbin", "nvjitlink", "nvml_dev", "nvprune", "nvrtc", "nvrtc_dev", "nvtx", "opencl", "thrust", "cublas", "cublas_dev", "cufft", "cufft_dev", "curand", "curand_dev", "cusolver", "cusolver_dev", "cusparse", "cusparse_dev", "npp", "npp_dev", "nvjpeg", "nvjpeg_dev"]'
 
             - name: Checkout Repository
               uses: actions/checkout@master
