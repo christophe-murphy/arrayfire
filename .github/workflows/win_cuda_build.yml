@@ -18,10 +18,11 @@ jobs:
           CUDA_VER: 12.6.2
           CUDA_DRIVER: 560.94
         steps:
-        - uses: Jimver/cuda-toolkit@v0.2.18
-          id: cuda-toolkit
-          with:
-            cuda: '12.6.2'
+            - name: Install CUDA
+            uses: Jimver/cuda-toolkit@v0.2.18
+            id: cuda-toolkit
+            with:
+              cuda: '12.6.2'
 
             - name: Checkout Repository
               uses: actions/checkout@master
