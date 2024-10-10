@@ -28,10 +28,10 @@ jobs:
               uses: actions/checkout@master
 
             - name: VCPKG Cache
-              uses: actions/cache@v4
               id: vcpkg-cache
+              uses: actions/cache@v4
               with:
-                path: ~/vcpkg
+                path: vcpkg
                 key: vcpkg-deps-${{ env.VCPKG_HASH }}
 
             - name: Install VCPKG Dependencies
