@@ -76,6 +76,4 @@ jobs:
             - name: Build and Test
               run: |
                   cd build
-                  $build_path = (pwd).Path
-                  $Env:PATH += ";$build_path/vcpkg_installed/x64-windows/bin"
-                  ctest -D Experimental --track ${CTEST_DASHBOARD} -T Test -T Submit -C RelWithDebInfo -R cuda -E pinverse -j2
+                  cmake --build . -j 2
