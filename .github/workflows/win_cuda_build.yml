@@ -22,7 +22,6 @@ jobs:
               id: cuda-toolkit
               with:
                 cuda: '12.6.2'
-                sub-packages: '["cudart", "nvcc", "nvfatbin", "nvjitlink", "nvml_dev", "nvprune", "nvrtc", "nvrtc_dev", "nvtx", "opencl", "thrust", "cublas", "cublas_dev", "cufft", "cufft_dev", "curand", "curand_dev", "cusolver", "cusolver_dev", "cusparse", "cusparse_dev", "npp", "npp_dev", "nvjpeg", "nvjpeg_dev", "visual_studio_integration"]'
 
             - name: Checkout Repository
               uses: actions/checkout@master
