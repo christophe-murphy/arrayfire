@@ -45,6 +45,7 @@ jobs:
                 popd
                 ls ~/vcpkg
                 mkdir build && cd build
+                $buildname = "$buildname-cuda"
                 cmake .. -G "Visual Studio 17 2022" -A x64 `
                       -DVCPKG_ROOT:PATH=~/vcpkg `
                       -DAF_BUILD_CUDA:BOOL=ON -DAF_BUILD_OPENCL:BOOL=OFF `
@@ -55,11 +56,6 @@ jobs:
 
             - name: CMake Configure
               run: |
-                  $ref = $env:GITHUB_REF | %{ if ($_ -match "refs/pull/[0-9]+/merge") { $_;} }
-                  $prnum = $ref | %{$_.Split("/")[2]}
-                  $branch = git branch --show-current
-                  $buildname = if($prnum -eq $null) { $branch } else { "PR-$prnum" }
-                  $dashboard = if($prnum -eq $null) { "Continuous" } else { "Experimental" }
                   $buildname = "$buildname-cuda"
                   if((Test-Path build) -eq 0) {
                       mkdir build
