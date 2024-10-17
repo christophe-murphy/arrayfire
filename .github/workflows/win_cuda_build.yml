@@ -67,7 +67,7 @@ jobs:
                       -DAF_BUILD_CUDA:BOOL=ON -DAF_BUILD_OPENCL:BOOL=OFF `
                       -DAF_BUILD_UNIFIED:BOOL=OFF -DAF_BUILD_FORGE:BOOL=ON `
                       -DAF_BUILD_EXAMPLES:BOOL=ON -DBUILDNAME:STRING="$buildname" `
-                      -DCUDA_ARCHITECTURE_BUILD_TARGETS=8.6 `
+                      -DCUDA_architecture_build_targets:STRING="8.6" `
                       -DAF_COMPUTE_LIBRARY:STRING="FFTW/LAPACK/BLAS"
 
             - name: Build
