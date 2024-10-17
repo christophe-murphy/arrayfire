@@ -16,11 +16,15 @@ jobs:
         env:
           NINJA_VER: 1.12.1
           CMAKE_VER: 3.30.2
-          CUDA_VER: 12.6.2
-          CUDA_DRIVER: 560.35.03
         strategy:
             fail-fast: false
         steps:
+            - name: Install CUDA
+              uses: Jimver/cuda-toolkit@v0.2.18
+              id: cuda-toolkit
+              with:
+                cuda: '12.6.2'
+
             - name: Checkout Repository
               uses: actions/checkout@master
 
@@ -61,30 +65,17 @@ jobs:
             - name: Install OpenBLAS for Ubuntu
               run: sudo apt-get install -y libopenblas-dev
 
-            - name: Install CUDA for Ubuntu
-              run: |
-                  wget --quiet "https://developer.download.nvidia.com/compute/cuda/${CUDA_VER}/local_installers/cuda_${CUDA_VER}_${CUDA_DRIVER}_linux.run"
-                  mkdir cuda_${CUDA_VER}
-                  sudo sh cuda_${CUDA_VER}_${CUDA_DRIVER}_linux.run --silent --toolkit --toolkitpath=${GITHUB_WORKSPACE}/cuda_${CUDA_VER}
-                  echo "CUDA_PATH=$(pwd)/cuda_${CUDA_VER}" >> $GITHUB_ENV
-
             - name: CMake Configure
               env:
                   BLAS_BACKEND: OpenBLAS
                   CC: gcc
                   OS_NAME: ubuntu-24.04
               run: |
-                  ref=$(echo ${GITHUB_REF} | awk '/refs\/pull\/[0-9]+\/merge/{print $0}')
-                  prnum=$(echo $ref | awk '{split($0, a, "/"); print a[3]}')
-                  branch=$(git rev-parse --abbrev-ref HEAD)
-                  buildname=$(if [ -z "$prnum" ]; then echo "$branch"; else echo "PR-$prnum"; fi)
-                  dashboard=$(if [ -z "$prnum" ]; then echo "Continuous"; else echo "Experimental"; fi)
                   backend="FFTW/LAPACK/BLAS"
                   buildname="$buildname-cpu-$BLAS_BACKEND"
                   mkdir build && cd build
                   ${CMAKE_PROGRAM} -G Ninja \
                       -DCMAKE_MAKE_PROGRAM:FILEPATH=${GITHUB_WORKSPACE}/ninja \
-                      -DCUDA_TOOLKIT_ROOT_DIR=${GITHUB_WORKSPACE}/cuda_${CUDA_VER} \
                       -DAF_BUILD_CUDA:BOOL=ON -DAF_BUILD_OPENCL:BOOL=OFF \
                       -DAF_BUILD_UNIFIED:BOOL=OFF -DAF_BUILD_EXAMPLES:BOOL=ON \
                       -DAF_BUILD_FORGE:BOOL=ON \
