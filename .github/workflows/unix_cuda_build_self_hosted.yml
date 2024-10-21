@@ -12,7 +12,7 @@ name: ci_cuda_linux_self_hosted
 jobs:
     build_cuda:
         name: CUDA
-        runs-on: [self-hosted]
+        runs-on: [self-hosted, linux, x64, gpu]
         env:
           CC: gcc
           CXX: g++
