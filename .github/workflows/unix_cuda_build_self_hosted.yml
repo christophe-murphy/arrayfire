@@ -40,4 +40,9 @@ jobs:
             - name: Build
               run: |
                   cd build
+                  ninja -j 12
+
+            - name: Test
+              run: |
+                  cd build
                   ctest -R cuda -j12
